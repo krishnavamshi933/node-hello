@@ -30,7 +30,7 @@ jobs:
         key: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
         port: 22
         script: |
-          git pull origin main  
+          git clone https://github.com/krishnavamshi933/node-hello.git && cd node-hello
           npm install           
           npm run build          
           pm2 restart app.js
