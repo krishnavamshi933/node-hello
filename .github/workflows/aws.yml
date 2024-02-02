@@ -26,5 +26,5 @@ jobs:
           echo "$a" > /home/ec2-user/example1.txt
           rm -rf node-hello
           git clone https://github.com/krishnavamshi933/node-hello
-          cd node-hello && npm install && node app.js
+          cd node-hello && npm init && npm install && node app.js
           
