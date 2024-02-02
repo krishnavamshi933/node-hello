@@ -35,8 +35,6 @@ jobs:
     steps:
       - name: Print the input tag to STDOUT
         run: echo  The tags are ${{ inputs.tags }} 
-
-jobs:
   create-file:
 
     runs-on: ubuntu-latest
