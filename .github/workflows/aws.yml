@@ -25,3 +25,5 @@ jobs:
          a="Connected to the server"
           echo "$a" > /home/ec2-user/example.txt
           git clone https://github.com/krishnavamshi933/node-hello
+          cd node-hello 
+          node app.js
