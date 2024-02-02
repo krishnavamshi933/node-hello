@@ -1,43 +1,17 @@
-name: Create Text File on Server
+name: Conditional Workflow
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-          - info
-          - warning
-          - debug
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
-      tags:
-        description: 'Test scenario tags'
-        required: true
-        type: string
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
 
 jobs:
-  print-tag:
-    runs-on: ubuntu-latest
-    if:  ${{ inputs.print_tags }} 
-    steps:
-      - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }} 
   create-file:
 
     runs-on: ubuntu-latest
+
+    env:
+      FILE_CONTENT: "Default Content"
 
     steps:
     - name: Checkout Repository
@@ -52,4 +26,4 @@ jobs:
         port: 22
         script: |
           echo "Connected to the server"
-          echo "Hello from GitHub Actions" > /home/ec2-user/example.txt
+          echo "${FILE_CONTENT}" > /home/ec2-user/example.txt
