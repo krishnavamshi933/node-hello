@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Node.js CI with Docker
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-push-image:
 
     runs-on: ubuntu-latest
 
@@ -22,5 +22,14 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Run Application
-      run: node app.js
+    - name: Build Docker Image
+      run: docker build -t krishnavamshi933/hello-world-nodejs:latest .
+
+    - name: Log in to Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Docker Image
+      run: docker push krishnavamshi933/hello-world-nodejs:latest
+
+    - name: Log out from Docker Hub
+      run: docker logout
