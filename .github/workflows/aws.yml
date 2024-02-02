@@ -23,7 +23,6 @@ jobs:
         port: 22
         script: |
          a="Connected to the server"
-          echo "$a" > /home/ec2-user/example.txt
+          echo "$a" > /home/ec2-user/example1.txt
           git clone https://github.com/krishnavamshi933/node-hello
-          cd node-hello 
-          node app.js
+          
