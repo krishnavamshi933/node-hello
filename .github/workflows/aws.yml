@@ -31,4 +31,4 @@ jobs:
         port: 22
         script: |
           scp -i ${{ secrets.EC2_INSTANCE_PEM_FILE }} -r ./* ec2-user@${{ secrets.EC2_INSTANCE_IP }}:/home/ec2-user
-          ssh -i ${{ secrets.EC2_INSTANCE_PEM_FILE }} ec2-user@${{ secrets.EC2_INSTANCE_IP }} "cd /home/ec2-user && npm install && pm2 restart app.js"
+          ssh -i ${{ secrets.EC2_INSTANCE_PEM_FILE }} ec2-user@${{ secrets.EC2_INSTANCE_IP }} "cd /home/ec2-user/node-hello npm install 
