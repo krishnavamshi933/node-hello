@@ -27,7 +27,7 @@ jobs:
       with:
         host: ${{ github.event.inputs.server-ip }}
         username: ${{ github.event.inputs.username }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
+        key: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
         port: 22
         script: |
           git pull origin main  
