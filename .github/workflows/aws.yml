@@ -22,9 +22,6 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Install Java
-      run: sudo yum install -y java-1.8.0-openjdk-devel
-
     - name: Deploy to EC2 Instance
       uses: appleboy/ssh-action@master
       with:
