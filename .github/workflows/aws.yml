@@ -10,9 +10,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-      FILE_CONTENT: "Default Content"
-
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -25,5 +22,5 @@ jobs:
         key: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
         port: 22
         script: |
-          echo "Connected to the server"
-          echo "${FILE_CONTENT}" > /home/ec2-user/example.txt
+         a="Connected to the server"
+          echo "$a" > /home/ec2-user/example.txt
