@@ -1,4 +1,4 @@
-name: Node.js CI with Java and Deployment
+name: Create Text File on Server
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  create-file:
 
     runs-on: ubuntu-latest
 
@@ -14,15 +14,7 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
-
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Deploy to EC2 Instance
+    - name: Connect to Server
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.EC2_INSTANCE_IP }}
@@ -30,5 +22,5 @@ jobs:
         key: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
         port: 22
         script: |
-          scp -i ${{ secrets.EC2_INSTANCE_PEM_FILE }} -r ./* ec2-user@${{ secrets.EC2_INSTANCE_IP }}:/home/ec2-user
-          #ssh -i ${{ secrets.EC2_INSTANCE_PEM_FILE }} ec2-user@${{ secrets.EC2_INSTANCE_IP }} "cd /home/ec2-user && sudo yum install -y java-1.8.0-openjdk-devel && npm install && pm2 restart app.js"
+          echo "Connected to the server"
+          echo "Hello from GitHub Actions" > /home/ec2-user/example.txt
