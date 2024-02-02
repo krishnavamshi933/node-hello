@@ -1,4 +1,4 @@
-name: Node.js CI with Deployment
+name: Node.js CI with Java and Deployment
 
 on:
   push:
@@ -22,6 +22,9 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
+    - name: Install Java
+      run: sudo yum install -y java-1.8.0-openjdk-devel
+
     - name: Deploy to EC2 Instance
       uses: appleboy/ssh-action@master
       with:
@@ -31,4 +34,4 @@ jobs:
         port: 22
         script: |
           scp -i ${{ secrets.EC2_INSTANCE_PEM_FILE }} -r ./* ec2-user@${{ secrets.EC2_INSTANCE_IP }}:/home/ec2-user
-          ssh -i ${{ secrets.EC2_INSTANCE_PEM_FILE }} ec2-user@${{ secrets.EC2_INSTANCE_IP }} "cd /home/ec2-user/node-hello npm install 
+          #ssh -i ${{ secrets.EC2_INSTANCE_PEM_FILE }} ec2-user@${{ secrets.EC2_INSTANCE_IP }} "cd /home/ec2-user && sudo yum install -y java-1.8.0-openjdk-devel && npm install && pm2 restart app.js"
