@@ -16,3 +16,4 @@
         content: "Hello, this file is created by Ansible.\n"
         dest: "/var/www/html/index.html"
       become: true
+
