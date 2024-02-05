@@ -1,6 +1,6 @@
 ---
 - name: Install Nginx and Create a File
-  hosts: all
+  hosts: 18.232.100.101
   become: true
   gather_facts: true
 
