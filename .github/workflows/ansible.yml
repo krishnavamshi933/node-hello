@@ -1,0 +1,30 @@
+name: Ansible Playbook
+
+on:
+  workflow_dispatch:
+    inputs:
+      username:
+        description: "SSH Username"
+        required: true
+      ip_address:
+        description: "Target IP Address"
+        required: true
+
+jobs:
+  run_ansible_playbook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
+
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook -i hosts -u ${{ github.event.inputs.username }} \
+                           --extra-vars "target_ip=${{ github.event.inputs.ip_address }}" \
+                           site.yml
