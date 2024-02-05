@@ -1,2 +1,3 @@
-- name: geerlingguy.nginx
-  src: https://github.com/geerlingguy/ansible-role-nginx
+- src: https://github.com/geerlingguy/ansible-role-nginx
+  version: master
+  name: geerlingguy.nginx
