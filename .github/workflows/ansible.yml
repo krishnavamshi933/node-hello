@@ -1,31 +1,40 @@
-name: Ansible Playbook
+name: Deploy to Server
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
-      username:
-        description: "SSH Username"
+      server-ip:
+        description: 'Server IP Address'
         required: true
-      ip_address:
-        description: "Target IP Address"
+      username:
+        description: 'Server Username'
         required: true
 
 jobs:
-  run_ansible_playbook:
+  deploy:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.5.0
-        with:
-          ssh-private-key: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
 
-      - name: Run Ansible Playbook
-  run: |
-    ansible-playbook -i "${{ github.event.inputs.ip_address }},"
-                     -e "ansible_user=${{ github.event.inputs.username }}" \
-                     site.yml
+    - name: Install Ansible
+      run: |
+        python -m pip install --upgrade pip
+        pip install ansible
 
+    - name: Run Ansible Playbook
+      run: |
+        ansible-playbook -i "${{ github.event.inputs.server-ip }},"
+                         -u "${{ github.event.inputs.username }}"
+                         --private-key=<(echo "${{ secrets.EC2_INSTANCE_PEM_FILE }}")
+                         playbook.yml
