@@ -32,9 +32,10 @@ jobs:
         pip install ansible
 
     - name: Run Ansible Playbook
-      run: |
-        ansible-playbook -i "${{ github.event.inputs.server-ip }},"
-                         -u "${{ github.event.inputs.username }}" \
-                         --private-key=<(echo "${{ secrets.EC2_INSTANCE_PEM_FILE }}") \
-                         --extra-vars "ansible_host=${{ github.event.inputs.server-ip }}" \
-                         playbook.yml
+      uses: ansible/ansible-action@v2
+      with:
+        args: playbook.yml
+        inventory: "${{ github.event.inputs.server-ip }},"
+        limit: "${{ github.event.inputs.server-ip }}"
+        extra-vars: "ansible_user=${{ github.event.inputs.username }}"
+        private-key: "${{ secrets.EC2_INSTANCE_PEM_FILE }}"
