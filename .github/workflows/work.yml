@@ -25,7 +25,7 @@ jobs:
           options: |
             --inventory ${{ github.event.inputs.server_ip }},
             --extra-vars "deploy_server_hostname=${{ github.event.inputs.deploy_server_hostname }}"
-          key: ${{secrets.PROVISIONING_SSH_PRIVATE_KEY}}
+          key: ${{secrets.EC2_INSTANCE_PEM_FILE}}
           requirements: requirements.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: "false"
