@@ -1,4 +1,2 @@
-# requirements.yml
 - name: geerlingguy.nginx
   src: https://github.com/geerlingguy/ansible-role-nginx
-  version: v4.0.0
