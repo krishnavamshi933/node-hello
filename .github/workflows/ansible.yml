@@ -31,12 +31,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install ansible
 
-    - name: Create private key file
-      run: echo "${{ secrets.EC2_INSTANCE_PEM_FILE }}" > private_key.pem
+    - name: Create inventory file
+      run: echo "${{ github.event.inputs.server-ip }}" > inventory.txt
 
     - name: Run Ansible Playbook
       run: |
-        ansible-playbook -i "${{ github.event.inputs.server-ip }}," \
+        ansible-playbook -i inventory.txt \
                          -u "${{ github.event.inputs.username }}" \
                          --private-key=private_key.pem \
                          --extra-vars "ansible_host=${{ github.event.inputs.server-ip }}" \
