@@ -23,11 +23,10 @@ jobs:
         with:
           playbook: site.yml
           options: |
-            --inventory 107.20.69.216,
+            --inventory ${{ secrets.EC2_INSTANCE_PEM_FILE }}
             --extra-vars "deploy_server_hostname=ubuntu"
-          key: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
           requirements: requirements.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: "false"
           ANSIBLE_DEPRECATION_WARNINGS: "false"
-          ANSIBLE_DEBUG: "1"
+          #ANSIBLE_DEBUG: "1"
