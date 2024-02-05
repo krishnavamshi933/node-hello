@@ -1,6 +1,6 @@
 ---
 - name: Install Nginx and Create a File
-  hosts: "{{ inventory_hostname }}"
+  hosts: 18.232.100.101  # Replace with your actual server IP
   become: true
   gather_facts: true
 
