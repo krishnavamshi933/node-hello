@@ -22,7 +22,7 @@ jobs:
         uses: dawidd6/action-ansible-playbook@5d970176ea4bfd99a3f5004d48e293fe0994eda1
         with:
           playbook: site.yml
-          options: "--inventory ${{ github.event.inputs.server_ip }} --extra-vars \"deploy_server_hostname=${{ github.event.inputs.deploy_server_hostname }}\""
+          options: "--extra-vars 'server_ip=${{ github.event.inputs.server_ip }} deploy_server_hostname=${{ github.event.inputs.deploy_server_hostname }}'"
           key: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
           requirements: requirements.yml
         env:
