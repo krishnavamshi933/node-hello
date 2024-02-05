@@ -23,10 +23,11 @@ jobs:
         with:
           playbook: site.yml
           options: |
-            --inventory ${{ github.event.inputs.server_ip }},
-            --extra-vars "deploy_server_hostname=${{ github.event.inputs.deploy_server_hostname }}"
-          key: ${{secrets.EC2_INSTANCE_PEM_FILE}}
+            --inventory 107.20.69.216,
+            --extra-vars "deploy_server_hostname=ubuntu"
+          key: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
           requirements: requirements.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: "false"
           ANSIBLE_DEPRECATION_WARNINGS: "false"
+          ANSIBLE_DEBUG: "1"
