@@ -1,0 +1,16 @@
+---
+- name: Ensure Nginx is installed and running
+  hosts: all
+  become: true  # Run tasks with elevated privileges (sudo)
+
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: true
