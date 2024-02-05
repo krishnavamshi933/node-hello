@@ -1,6 +1,6 @@
 ---
 - name: Install Nginx and Create a File
-  #hosts: "{{ server_ip }}"  # Use the dynamic IP passed as an environment variable
+  hosts: 107.20.69.216
   become: true
   gather_facts: true
 
