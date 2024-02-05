@@ -34,6 +34,9 @@ jobs:
     - name: Create inventory file
       run: echo "${{ github.event.inputs.server-ip }}" > inventory.txt
 
+    - name: Create private key file
+      run: echo "${{ secrets.EC2_INSTANCE_PEM_FILE }}" > private_key.pem
+
     - name: Run Ansible Playbook
       run: |
         ansible-playbook -i inventory.txt \
