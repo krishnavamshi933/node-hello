@@ -9,7 +9,7 @@ on:
       deploy_server_hostname:
         description: "Set Hostname For Main/Hsm Server"
         required: true
-     
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,3 +28,4 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: "false"
           ANSIBLE_DEPRECATION_WARNINGS: "false"
+          server_ip: ${{ github.event.inputs.server_ip }}  # Pass the server_ip variable to the playbook
