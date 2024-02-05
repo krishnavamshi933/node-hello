@@ -1,6 +1,6 @@
 ---
 - name: Install Nginx and Create a File
-  hosts: 18.232.100.101
+  hosts: "{{ server_ip }}"  # Use the server_ip variable here
   become: true
   gather_facts: true
 
