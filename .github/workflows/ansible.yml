@@ -24,7 +24,8 @@ jobs:
           ssh-private-key: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
 
       - name: Run Ansible Playbook
-        run: |
-          ansible-playbook -e "ansible_user=${{ github.event.inputs.username }}" \
-                           -e "target_ip=${{ github.event.inputs.ip_address }}" \
-                           site.yml
+  run: |
+    ansible-playbook -i "${{ github.event.inputs.ip_address }},"
+                     -e "ansible_user=${{ github.event.inputs.username }}" \
+                     site.yml
+
