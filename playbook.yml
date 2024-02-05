@@ -23,7 +23,7 @@
     - name: Clone Node.js application repository
       git:
         repo: https://github.com/krishnavamshi933/node-hello.git
-        dest: /path/to/node-hello  # Change this to the desired path
+        dest: /home/ubuntu/node-hello  # Change this to the desired path
         version: main  # Specify the branch or tag
 
     - name: Change to the application directory
