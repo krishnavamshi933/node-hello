@@ -1,7 +1,7 @@
 ---
-- name: Ensure Nginx is installed and running
+- name: Install Nginx and Create a File
   hosts: all
-  become: true  # Run tasks with elevated privileges (sudo)
+  become: true
 
   tasks:
     - name: Install Nginx
@@ -9,8 +9,7 @@
         name: nginx
         state: present
 
-    - name: Start Nginx service
-      service:
-        name: nginx
-        state: started
-        enabled: true
+    - name: Create a File
+      copy:
+        content: "Hello, this is a sample file created by Ansible."
+        dest: /tmp/sample_file.txt
