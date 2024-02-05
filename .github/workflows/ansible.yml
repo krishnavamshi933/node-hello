@@ -21,21 +21,14 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.x
-
-    - name: Install Ansible
-      run: |
-        python -m pip install --upgrade pip
-        pip install ansible
-
     - name: Run Ansible Playbook
-      uses: ansible/ansible-action@v2
+      uses: dawidd6/action-ansible-playbook@5d970176ea4bfd99a3f5004d48e293fe0994eda1
       with:
-        args: playbook.yml
-        inventory: "${{ github.event.inputs.server-ip }},"
-        limit: "${{ github.event.inputs.server-ip }}"
-        extra-vars: "ansible_user=${{ github.event.inputs.username }}"
-        private-key: "${{ secrets.EC2_INSTANCE_PEM_FILE }}"
+        playbook: playbook.yml  # replace with your playbook file name
+        options: |
+          --inventory ${{ github.event.inputs.server-ip }},
+          --extra-vars "ansible_user=${{ github.event.inputs.username }}"
+          --private-key <(echo "${{ secrets.EC2_INSTANCE_PEM_FILE }}")
+      env:
+        ANSIBLE_HOST_KEY_CHECKING: "false"
+        ANSIBLE_DEPRECATION_WARNINGS: "false"
