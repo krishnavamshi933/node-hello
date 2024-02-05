@@ -1,0 +1,33 @@
+name: Server Provisioning
+
+on:
+  workflow_dispatch:
+    inputs:
+      server_ip:
+        description: "Enter Main/Hsm Server IP"
+        required: true
+      deploy_server_hostname:
+        description: "Set Hostname For Main/Hsm Server"
+        required: true
+     
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Ansible Playbook
+        uses: dawidd6/action-ansible-playbook@5d970176ea4bfd99a3f5004d48e293fe0994eda1
+        with:
+          playbook: site.yml
+          options: |
+            --inventory ${{ github.event.inputs.server_ip }},
+            --extra-vars "deploy_server_hostname=${{ github.event.inputs.deploy_server_hostname }}"
+            
+          key: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
+          requirements: requirements.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "false"
+          ANSIBLE_DEPRECATION_WARNINGS: "false"
