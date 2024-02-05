@@ -22,3 +22,4 @@ jobs:
           options: "--inventory ${ { github.event.inputs.server_ip } },"  # Dynamic inventory based on the input
         env:
           ANSIBLE_HOST_KEY_CHECKING: "false"
+          ANSIBLE_PRIVATE_KEY: ${{ secrets.EC2_INSTANCE_PEM_FILE }}
