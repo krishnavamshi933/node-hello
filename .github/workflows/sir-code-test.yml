@@ -6,6 +6,9 @@ on:
       server_ip:
         description: "Enter Server IP"
         required: true
+      username:
+        description: 'Server Username'
+        required: true
 
 jobs:
   build:
@@ -18,7 +21,7 @@ jobs:
       - name: Create Inventory File
         run: |
           echo "[webservers]" > inventory.yml
-          echo "ubuntu ansible_host=${{ github.event.inputs.server_ip }} ansible_user=ubuntu" >> inventory.yml
+          echo "ubuntu ansible_host=${{ github.event.inputs.server_ip }} ansible_user=${{ github.event.inputs.username }}" >> inventory.yml
 
       - name: Run Ansible Playbook
         uses: dawidd6/action-ansible-playbook@5d970176ea4bfd99a3f5004d48e293fe0994eda1
