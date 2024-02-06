@@ -1,4 +1,4 @@
-# name: Server provisioning
+name: Server provisioning
 
 on:
   workflow_dispatch:
