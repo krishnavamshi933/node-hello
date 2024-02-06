@@ -23,12 +23,12 @@ jobs:
         with:
           playbook: site.yml
           options: |
-            --inventory hosts,
+            --inventory-file=<(echo "
+            [webservers]
+            ubuntu ansible_host=${{ github.event.inputs.server_ip }} ansible_user=ubuntu
+            ")
           key: ${{secrets.EC2_INSTANCE_PEM_FILE}}
           requirements: requirements.yml 
         env:
           ANSIBLE_HOST_KEY_CHECKING: "false"
           ANSIBLE_DEPRECATION_WARNINGS: "false"
-        
-    
-
