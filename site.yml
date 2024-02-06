@@ -1,6 +1,6 @@
 ---
 - name: Install Nginx and Create a File
-  hosts: "{{ server_ip }}"
+  hosts: all
   become: true
   gather_facts: true
 
