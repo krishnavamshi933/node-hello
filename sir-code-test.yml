@@ -1,0 +1,34 @@
+name: Server provisioning
+
+on:
+  workflow_dispatch:
+    inputs:
+      server_ip:
+        description: "Enter Server IP"
+        required: true
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Ansible Playbook
+        uses: dawidd6/action-ansible-playbook@5d970176ea4bfd99a3f5004d48e293fe0994eda1
+        with:
+          playbook: site.yml
+          options: |
+            --inventory ${{ github.event.inputs.server_ip }},
+          key: ${{secrets.EC2_INSTANCE_PEM_FILE}}
+          requirements: requirements.yml 
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "false"
+          ANSIBLE_DEPRECATION_WARNINGS: "false"
+        
+    
+
