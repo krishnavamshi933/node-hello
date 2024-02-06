@@ -1,4 +1,4 @@
-name: Server provisioning
+# name: Server provisioning
 
 on:
   workflow_dispatch:
@@ -15,12 +15,15 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Create Inventory File
+        run: echo "all:\n  hosts:\n    app_server:\n      ansible_host: ${{ github.event.inputs.server_ip }}\n  vars:\n    ansible_user: ubuntu" > inventory.yml
+
       - name: Run Ansible Playbook
         uses: dawidd6/action-ansible-playbook@5d970176ea4bfd99a3f5004d48e293fe0994eda1
         with:
           playbook: site.yml
           options: |
-           --inventory ${GITHUB_WORKSPACE}/inventory.yml,
+            --inventory inventory.yml
           key: ${{secrets.EC2_INSTANCE_PEM_FILE }}
           requirements: requirements.yml
         env:
