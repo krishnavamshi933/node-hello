@@ -29,7 +29,7 @@ jobs:
           # options: --inventory hosts
           options: |
             --inventory ${{ github.event.inputs.server_ip }},
-            --extra-vars "deploy_server_hostname=${{ github.event.inputs.deploy_server_hostname }}"
+           # --extra-vars "deploy_server_hostname=${{ github.event.inputs.deploy_server_hostname }}"
            
             
           key: ${{secrets.EC2_INSTANCE_PEM_FILE }}
