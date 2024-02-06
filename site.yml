@@ -1,6 +1,6 @@
 ---
 - name: Install Nginx and Create a File
-  hosts: all
+  hosts: webservers 
   become: true
   gather_facts: true
 
