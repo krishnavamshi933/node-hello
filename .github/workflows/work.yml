@@ -20,7 +20,7 @@ jobs:
         with:
           playbook: site.yml
           options: |
-           --inventory ${{ github.event.inputs.server_ip }},
+           --inventory ${GITHUB_WORKSPACE}/inventory.yml,
           key: ${{secrets.EC2_INSTANCE_PEM_FILE }}
           requirements: requirements.yml
         env:
