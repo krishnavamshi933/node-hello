@@ -20,6 +20,12 @@
         name: git
         state: present
 
+    - name: Install PM2
+      become_user: "{{ ansible_user }}"
+      npm:
+        name: pm2
+        global: yes
+
     - name: Clone Node.js application repository
       become_user: "{{ ansible_user }}"
       git:
@@ -29,12 +35,18 @@
 
     - name: Install application dependencies
       become_user: "{{ ansible_user }}"
-      shell: cd /home/ubuntu/node-hello && npm install
+      shell:
+        cmd: npm install
+        chdir: /home/ubuntu/node-hello
 
     - name: Build the application
       become_user: "{{ ansible_user }}"
-      shell: cd /home/ubuntu/node-hello && npm run build  # Build the application
+      shell:
+        cmd: npm run build
+        chdir: /home/ubuntu/node-hello
 
     - name: Restart or start pm2 process
       become_user: "{{ ansible_user }}"
-      shell: cd /home/ubuntu/node-hello && pm2 restart app.js || pm2 start app.js  # Restart or start the pm2 process
+      shell:
+        cmd: pm2 restart app.js || pm2 start app.js
+        chdir: /home/ubuntu/node-hello
