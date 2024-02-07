@@ -29,16 +29,16 @@
 
     - name: Change to the application directory
       become_user: "{{ ansible_user }}"
-      shell: cd /home/ubuntu/node-hello
+      shell: cd /home/ubuntu/node-hello  # Change directory to the application's directory
 
     - name: Install application dependencies
       become_user: "{{ ansible_user }}"
-      shell: cd /home/ubuntu/node-hello && npm install
+      shell: npm install  # Install application dependencies
 
     - name: Build the application
       become_user: "{{ ansible_user }}"
-      shell: cd /home/ubuntu/node-hello && npm run build
+      shell: npm run build  # Build the application
 
     - name: Restart or start pm2 process
       become_user: "{{ ansible_user }}"
-      shell: cd /home/ubuntu/node-hello pm2 restart app.js || pm2 start app.js
+      shell: pm2 restart app.js || pm2 start app.js  # Restart or start the pm2 process
