@@ -1,6 +1,6 @@
 ---
 - name: Deploy Node.js Application
-  hosts: all
+  hosts: webservers
   become: true  # Run tasks with elevated privileges (sudo)
 
   tasks:
@@ -21,6 +21,7 @@
         state: present
 
     - name: Clone Node.js application repository
+      become_user: "{{ ansible_user }}"
       git:
         repo: https://github.com/krishnavamshi933/node-hello.git
         dest: /home/ubuntu/node-hello  # Change this to the desired path
