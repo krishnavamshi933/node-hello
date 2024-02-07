@@ -37,8 +37,8 @@
 
     - name: Build the application
       become_user: "{{ ansible_user }}"
-      shell: npm run build
+      shell: cd /home/ubuntu/node-hello && npm run build
 
     - name: Restart or start pm2 process
       become_user: "{{ ansible_user }}"
-      shell: pm2 restart app.js || pm2 start app.js
+      shell: cd /home/ubuntu/node-hello pm2 restart app.js || pm2 start app.js
