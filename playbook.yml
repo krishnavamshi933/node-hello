@@ -33,7 +33,7 @@
 
     - name: Install application dependencies
       become_user: "{{ ansible_user }}"
-      shell: npm install  # Install application dependencies
+      shell: cd /home/ubuntu/node-hello && npm install
 
     - name: Build the application
       become_user: "{{ ansible_user }}"
