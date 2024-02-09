@@ -1,2 +1,0 @@
-[webservers]
-ubuntu ansible_host=54.152.133.73 ansible_connection=ssh  ansible_user=ubuntu
