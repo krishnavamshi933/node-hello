@@ -1,0 +1,49 @@
+name: Server Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      server_ip:
+        description: "Enter Server IP"
+        required: true
+      username:
+        description: 'Server Username'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Create Inventory File
+        id: create_inventory
+        run: |
+          echo "[webservers]" > inventory.yml
+          echo "ansible_host=${{ github.event.inputs.server_ip }} ansible_user=${{ github.event.inputs.username }}" >> inventory.yml
+          while true; do
+            read -p 'Do you want to add another server? (yes/no): ' choice
+            case $choice in
+              [Yy]* )
+                read -p 'Enter Server IP: ' ip
+                read -p 'Enter Server Username: ' user
+                echo "${ip} ansible_user=${user}" >> inventory.yml
+                ;;
+              [Nn]* ) break;;
+              * ) echo "Please answer yes or no.";;
+            esac
+          done
+
+      - name: Run Ansible Playbook
+        uses: dawidd6/action-ansible-playbook@5d970176ea4bfd99a3f5004d48e293fe0994eda1
+        with:
+          playbook: site.yml
+          options: |
+            --inventory inventory.yml
+          key: ${{secrets.EC2_INSTANCE_PEM_FILE}}
+          requirements: requirements.yml 
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "false"
+          ANSIBLE_DEPRECATION_WARNINGS: "false"
